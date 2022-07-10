@@ -1,10 +1,20 @@
 import type { NextPage } from "next";
+import { useSession, getSession } from "next-auth/react";
 import Head from "next/head";
 import Dashboard from "../components/Dashboard";
+import { useRouter } from "next/router";
 import { trpc } from "../utils/trpc";
+import Loader from "../components/Loader";
 
 const Home: NextPage = () => {
-  const hello = trpc.useQuery(["example.hello", { text: "from tRPC" }]);
+  const router = useRouter();
+  const { data: session, status } = useSession();
+
+  if (status === "loading") {
+    return <Loader />;
+  }
+
+  //console.log(session);
 
   return (
     <>
@@ -20,3 +30,22 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export const getServerSideProps = async (context: any) => {
+  const session = await getSession(context);
+
+  //console.log(session);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {
+      session,
+    },
+  };
+};

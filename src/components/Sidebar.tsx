@@ -18,10 +18,10 @@ function Sidebar() {
         height={56}
         objectFit="contain"
       />
-      <div>
-        <HiHome className="sidebarIcon text-white opacity-[0.85]" />
+      <div className="flex flex-col space-y-6">
+        <HiHome className="sidebarIcon text-green-400 opacity-[0.85]" />
         <HiStar className="sidebarIcon text-2xl" />
-        <HiMicrophone className="sidebarIcon ml-1" />
+        <HiMicrophone className="sidebarIcon" />
         <HiChartBar className="sidebarIcon" />
         <HiClock className="sidebarIcon" />
         <HiDotsHorizontal className="sidebarIcon" />
