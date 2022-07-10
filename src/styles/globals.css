@@ -14,4 +14,18 @@
   .tag {
     @apply py-1.5 px-3 text-[#cecece] rounded-xl text-sm font-semibold border border-[#484848];
   }
+  .genre {
+    @apply bg-[#101010] text-[#CECECE] border border-[#484848] rounded-xl py-2.5 px-3.5 text-[11px] font-bold cursor-default;
+  }
+  .icon {
+    @apply hover:scale-125 transition-all duration-150 ease-out;
+  }
+
+  .croppedIcon {
+    clip-path: inset(0 50% 0 0);
+  }
+
+  .playerIcon {
+    @apply transition ease-out transform hover:scale-105 hover:text-white;
+  }
 }
