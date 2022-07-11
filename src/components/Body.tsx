@@ -68,7 +68,7 @@ function Body({ spotifyApi, chooseTrack }: SpotiApi) {
   }, [search, accessToken]);
 
   return (
-    <section className="bg-black ml-24 py-4 space-y-8 md:max-w-6xl flex-grow md:mr-2.5">
+    <section className="bg-black ml-24 py-4 space-y-8 md:max-w-full flex-grow md:mr-2.5">
       <Search search={search} setSearch={setSearch} />
       <div className="grid overflow-y-scroll scrollbar-hide h-96 py-4 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-8 p-4">
         {searchResults.length === 0
@@ -91,7 +91,8 @@ function Body({ spotifyApi, chooseTrack }: SpotiApi) {
                 />
               ))}
       </div>
-      <div className="flex gap-x-8 absolute min-w-full md:relative ml-6">
+
+      <div className="flex gap-x-8 absolute w-max-full md:relative ml-6">
         <div className="hidden xl:inline max-w-[270px]">
           <h2 className="text-white font-bold mb-3">Genres</h2>
           <div className="flex gap-x-2 gap-y-2.5 flex-wrap mb-3">
@@ -109,34 +110,35 @@ function Body({ spotifyApi, chooseTrack }: SpotiApi) {
             All Genres
           </button>
         </div>
-      </div>
-      <div>
-        <h2 className="text-white font-bold mb-3">
-          {searchResults.length === 0 ? "New Releases" : "Tracks"}
-        </h2>
-        <div
-          className="space-y-3 border-2 border-[#262626] rounded-2xl p-3 bg-[#0D0D0D] overflow-y-scroll h-[1000px] md:h-96 scrollbar-thin
-         scrollbar-thumb-gray-600 scrollbar-thumb-rounded hover:scrollbar-thumb-gray-500 w-[830px]"
-        >
-          {searchResults.length === 0
-            ? newReleases
-                .slice(4, newReleases.length)
-                .map((track) => (
-                  <Track
-                    key={track.id}
-                    track={track}
-                    chooseTrack={chooseTrack}
-                  />
-                ))
-            : searchResults
-                .slice(4, searchResults.length)
-                .map((track) => (
-                  <Track
-                    key={track.id}
-                    track={track}
-                    chooseTrack={chooseTrack}
-                  />
-                ))}
+
+        <div className="p-2 w-full">
+          <h2 className="text-white font-bold mb-3">
+            {searchResults.length === 0 ? "New Releases" : "Tracks"}
+          </h2>
+          <div
+            className="space-y-3 border-2 border-[#262626] rounded-2xl p-3 bg-[#0D0D0D] overflow-y-scroll h-[1000px] md:h-96 scrollbar-thin
+         scrollbar-thumb-gray-600 scrollbar-thumb-rounded hover:scrollbar-thumb-gray-500 w-max-full"
+          >
+            {searchResults.length === 0
+              ? newReleases
+                  .slice(4, newReleases.length)
+                  .map((track) => (
+                    <Track
+                      key={track.id}
+                      track={track}
+                      chooseTrack={chooseTrack}
+                    />
+                  ))
+              : searchResults
+                  .slice(4, searchResults.length)
+                  .map((track) => (
+                    <Track
+                      key={track.id}
+                      track={track}
+                      chooseTrack={chooseTrack}
+                    />
+                  ))}
+          </div>
         </div>
       </div>
     </section>

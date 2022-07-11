@@ -8,8 +8,12 @@ import Loader from "../components/Loader";
 
 const Home: NextPage = () => {
   const router = useRouter();
-  const { data: session, status } = useSession();
-
+  const { status, data: session } = useSession({
+    required: true,
+    onUnauthenticated() {
+      router.push("/login");
+    },
+  });
   if (status === "loading") {
     return <Loader />;
   }
@@ -30,22 +34,3 @@ const Home: NextPage = () => {
 };
 
 export default Home;
-
-export const getServerSideProps = async (context: any) => {
-  const session = await getSession(context);
-
-  //console.log(session);
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
-  return {
-    props: {
-      session,
-    },
-  };
-};
