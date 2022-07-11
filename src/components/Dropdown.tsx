@@ -4,6 +4,10 @@ import { ChevronDownIcon } from "@heroicons/react/solid";
 import { LogoutIcon } from "@heroicons/react/outline";
 import { signOut, useSession } from "next-auth/react";
 
+interface sr {
+  name?: string;
+}
+
 export default function Dropdown() {
   const { data: session } = useSession();
 
@@ -13,7 +17,7 @@ export default function Dropdown() {
         <Menu.Button className="flex items-center w-full px-4 py-3 text-sm font-medium text-white bg-[#1A1A1A] rounded-full hover:bg-[#3E3E3E]">
           <ChevronDownIcon className="h-6 text-[#686868]" aria-hidden="true" />
           <img
-            src={session.user.image}
+            src={session?.user?.image as string}
             alt=""
             className="rounded-full w-11 h-11 absolute -right-1 object-cover z-60"
           />

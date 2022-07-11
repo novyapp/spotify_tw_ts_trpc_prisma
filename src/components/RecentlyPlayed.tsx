@@ -1,7 +1,10 @@
 import { useRecoilState } from "recoil";
 import { playingTrackState, playState } from "../atoms/playerAtom";
-
-function RecentlyPlayed({ track, chooseTrack }) {
+interface Pos {
+  track: any;
+  chooseTrack: any;
+}
+function RecentlyPlayed({ track, chooseTrack }: Pos) {
   const [play, setPlay] = useRecoilState(playState);
   const [playingTrack, setPlayingTrack] = useRecoilState(playingTrackState);
 

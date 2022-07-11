@@ -4,8 +4,8 @@ import { playingTrackState, playState } from "../atoms/playerAtom";
 import SpotifyPlayer from "react-spotify-web-playback";
 
 interface PlayerIF {
-  accessToken: string;
-  trackUri: string;
+  accessToken: string | unknown;
+  trackUri: any;
 }
 
 function Player({ accessToken, trackUri }: PlayerIF) {

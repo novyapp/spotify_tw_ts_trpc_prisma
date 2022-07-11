@@ -3,7 +3,12 @@ import { BsFillPauseFill, BsFillPlayFill } from "react-icons/bs";
 import { useRecoilState } from "recoil";
 import { playingTrackState, playState } from "../atoms/playerAtom";
 
-function Poster({ track, chooseTrack }) {
+interface Pos {
+  track: any;
+  chooseTrack: any;
+}
+
+function Poster({ track, chooseTrack }: Pos) {
   const [play, setPlay] = useRecoilState(playState);
   const [playingTrack, setPlayingTrack] = useRecoilState(playingTrackState);
 

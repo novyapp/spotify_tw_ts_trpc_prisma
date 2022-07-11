@@ -13,8 +13,8 @@ function Body({ spotifyApi, chooseTrack }: SpotiApi) {
   const { data: session } = useSession();
   const accessToken = session?.accessToken;
   const [search, setSearch] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [newReleases, setNewReleases] = useState([]);
+  const [searchResults, setSearchResults] = useState([] as any[]);
+  const [newReleases, setNewReleases] = useState([] as any[]);
 
   useEffect(() => {
     if (!accessToken) return;
@@ -28,22 +28,26 @@ function Body({ spotifyApi, chooseTrack }: SpotiApi) {
 
     let cancel = false;
 
-    spotifyApi.searchTracks(search).then((res) => {
-      if (cancel) return;
-      setSearchResults(
-        res.body.tracks.items.map((track) => {
-          return {
-            id: track.id,
-            artist: track.artists[0].name,
-            title: track.name,
-            uri: track.uri,
-            albumUrl: track.album.images[0].url,
-            popularity: track.popularity,
-          };
-        })
-      );
-    });
-
+    spotifyApi
+      .searchTracks(search)
+      .then((res: { body: { tracks: { items: any[] } } }) => {
+        if (cancel) return;
+        setSearchResults(
+          res.body.tracks.items.map((track) => {
+            return {
+              id: track.id,
+              artist: track.artists[0].name,
+              title: track.name,
+              uri: track.uri,
+              albumUrl: track.album.images[0].url,
+              popularity: track.popularity,
+            };
+          })
+        );
+      });
+    return () => {
+      cancel = false;
+    };
     return () => (cancel = true);
   }, [search, accessToken]);
 
@@ -51,20 +55,22 @@ function Body({ spotifyApi, chooseTrack }: SpotiApi) {
   useEffect(() => {
     if (!accessToken) return;
 
-    spotifyApi.getNewReleases().then((res) => {
-      setSearchResults(
-        res.body.albums.items.map((track) => {
-          return {
-            id: track.id,
-            artist: track.artists[0].name,
-            title: track.name,
-            uri: track.uri,
-            albumUrl: track.images[0].url,
-            popularity: track.popularity,
-          };
-        })
-      );
-    });
+    spotifyApi
+      .getNewReleases()
+      .then((res: { body: { albums: { items: any[] } } }) => {
+        setSearchResults(
+          res.body.albums.items.map((track) => {
+            return {
+              id: track.id,
+              artist: track.artists[0].name,
+              title: track.name,
+              uri: track.uri,
+              albumUrl: track.images[0].url,
+              popularity: track.popularity,
+            };
+          })
+        );
+      });
   }, [search, accessToken]);
 
   return (

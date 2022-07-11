@@ -6,7 +6,11 @@ import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { playingTrackState, playState } from "../atoms/playerAtom";
 
-function Track({ track, chooseTrack }) {
+interface Pos {
+  track: any;
+  chooseTrack: any;
+}
+function Track({ track, chooseTrack }: Pos) {
   const [hasLiked, setHasLiked] = useState(false);
   const [play, setPlay] = useRecoilState(playState);
   const [playingTrack, setPlayingTrack] = useRecoilState(playingTrackState);

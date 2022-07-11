@@ -7,7 +7,7 @@ import { FaGithub } from "react-icons/fa";
 import { useRouter } from "next/router";
 import Loader from "../components/Loader";
 
-function login({ providers }: any) {
+const Login = ({ providers }: any) => {
   const { data: session, status } = useSession();
   const router = useRouter();
 
@@ -74,9 +74,9 @@ function login({ providers }: any) {
       </div>
     </div>
   );
-}
+};
 
-export default login;
+export default Login;
 
 export async function getServerSideProps() {
   const providers = await getProviders();
