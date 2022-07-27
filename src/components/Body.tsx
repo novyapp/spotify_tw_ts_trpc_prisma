@@ -12,7 +12,7 @@ interface SpotiApi {
 function Body({ spotifyApi, chooseTrack }: SpotiApi) {
   const { data: session } = useSession();
   const accessToken = session?.accessToken;
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState("chillhop");
   const [searchResults, setSearchResults] = useState([] as any[]);
   const [newReleases, setNewReleases] = useState([] as any[]);
 
